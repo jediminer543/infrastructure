@@ -1,0 +1,7 @@
+# Block TF state uploads
+*.tfstate
+*.tfstate.*
+
+# Block terraform modules upload
+.terraform
+*/.terraform

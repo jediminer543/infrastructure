@@ -1,0 +1,23 @@
+authentik:
+    error_reporting:
+        enabled: true
+    log_level: info
+ingress:
+    enabled: true
+    hosts:
+        - host: COMPLETED_BY_TERRAFORM
+          paths:
+              - path: "/"
+                pathType: Prefix
+postgresql:
+    enabled: true
+redis:
+    enabled: true
+livenessProbe:
+    initialDelaySeconds: 120
+    periodSeconds: 60
+prometheus:
+    serviceMonitor:
+        create: true
+    rules:
+        create: true
