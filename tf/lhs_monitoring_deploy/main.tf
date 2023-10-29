@@ -24,7 +24,7 @@ resource "helm_release" "monitoring" {
     version    = "${var.kps_version}"
     create_namespace = false
 
-    values = {
+    values = [yamlencode({
       prometheus = {
         resources = {
           limits = {
@@ -41,7 +41,7 @@ resource "helm_release" "monitoring" {
           }
         }
       }
-    }
+    })]
 
     // The below settings ensure cross namespace access
     set {
