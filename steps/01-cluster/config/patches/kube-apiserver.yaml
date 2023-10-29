@@ -3,4 +3,4 @@ spec:
     - name: kube-apiserver
       resources:
         limits:
-          memory: 150Mi
+          memory: 512Mi
