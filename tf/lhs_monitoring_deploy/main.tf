@@ -24,6 +24,25 @@ resource "helm_release" "monitoring" {
     version    = "${var.kps_version}"
     create_namespace = false
 
+    values = {
+      prometheus = {
+        resources = {
+          limits = {
+            cpu = "100m"
+            memory = "100M"
+          }
+        }
+        prometheusSpec = {
+          resources = {
+            limits = {
+              cpu = "100m"
+              memory = "100M"
+            }
+          }
+        }
+      }
+    }
+
     // The below settings ensure cross namespace access
     set {
         name = "prometheus.prometheusSpec.ruleSelectorNilUsesHelmValues"
@@ -65,23 +84,5 @@ resource "helm_release" "monitoring" {
       name = "prometheus.ingress.hosts[0]"
       value = "prometheus.${var.kps_root_domain}"
     }
-    set {
-      name = "prometheus.resources.limits.cpu"
-      value = "100m"
-    }
-    set {
-      name = "prometheus.resources.limits.memory"
-      value = "100M"
-    }
-    // prometheus spec
-    set {
-      name = "prometheus.prometheusSpec.resources.limits.cpu"
-      value = "100m"
-    }
-    set {
-      name = "prometheus.prometheusSpec.resources.limits.memory"
-      value = "100M"
-    }
-    
 
 }
