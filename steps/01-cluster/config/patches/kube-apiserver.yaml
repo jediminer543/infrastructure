@@ -1,0 +1,6 @@
+spec:
+  containers:
+    - name: kube-apiserver
+      resources:
+        limits:
+          memory: 150Mi
