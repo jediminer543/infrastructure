@@ -127,22 +127,22 @@ resource "helm_release" "monitoring" {
       name = "grafana.resources.limits.memory"
       value = "100M"
     }
-    // grafana
+    // prometheus-node-exporter
     set {
-      name = "prometheusNodeExporter.resources.limits.cpu"
+      name = "prometheus-node-exporter.resources.limits.cpu"
       value = "100m"
     }
     set {
-      name = "prometheusNodeExporter.resources.limits.memory"
+      name = "prometheus-node-exporter.resources.limits.memory"
       value = "100M"
     }
-    // grafana
+    // kube-state-metrics
     set {
-      name = "kubeStateMetrics.resources.limits.cpu"
+      name = "kube-state-metrics.resources.limits.cpu"
       value = "100m"
     }
     set {
-      name = "kubeStateMetrics.resources.limits.memory"
+      name = "kube-state-metrics.resources.limits.memory"
       value = "100M"
     }
 }
