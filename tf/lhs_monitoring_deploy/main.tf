@@ -75,5 +75,15 @@ resource "helm_release" "monitoring" {
       name = "prometheus.resources.limits.memory"
       value = "100M"
     }
+    // prometheus spec
+    set {
+      name = "prometheus.prometheusSpec.resources.limits.cpu"
+      value = "100m"
+    }
+    set {
+      name = "prometheus.prometheusSpec.resources.limits.memory"
+      value = "100M"
+    }
+    
 
 }
