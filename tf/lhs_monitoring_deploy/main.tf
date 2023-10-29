@@ -118,5 +118,31 @@ resource "helm_release" "monitoring" {
       name = "alertmanager.alertmanagerSpec.resources.limits.memory"
       value = "100M"
     }
-    //
+    // grafana
+    set {
+      name = "grafana.resources.limits.cpu"
+      value = "100m"
+    }
+    set {
+      name = "grafana.resources.limits.memory"
+      value = "100M"
+    }
+    // grafana
+    set {
+      name = "prometheusNodeExporter.resources.limits.cpu"
+      value = "100m"
+    }
+    set {
+      name = "prometheusNodeExporter.resources.limits.memory"
+      value = "100M"
+    }
+    // grafana
+    set {
+      name = "kubeStateMetrics.resources.limits.cpu"
+      value = "100m"
+    }
+    set {
+      name = "kubeStateMetrics.resources.limits.memory"
+      value = "100M"
+    }
 }
