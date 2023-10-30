@@ -23,6 +23,8 @@ kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.1
 kubectl create -f config/calico-config.yaml
 # Configure local storage
 kubectl apply -f config/local-path-storage.yaml
+# Add metrics server
+kubectl apply -f config/metrics-server.yaml
 # Apply patches if missed
 sudo kubeadm upgrade node --patches config/patches/
 
