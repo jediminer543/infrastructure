@@ -72,7 +72,7 @@ resource "helm_release" "monitoring" {
     }
     set {
       name = "prometheus.prometheusSpec.resources.limits.memory"
-      value = "384M"
+      value = "512M"
     }
     // prometheusOperator
     set {
