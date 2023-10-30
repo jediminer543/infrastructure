@@ -16,32 +16,32 @@ spec:
   resources:
     api:
       requests:
-        cpu: "500m"
+        cpu: "100m"
         memory: "128Mi"
       limits:
         cpu: "500m"
         memory: "384Mi"
     mgr:
       requests:
-        cpu: "500m"
+        cpu: "100m"
         memory: "128Mi"
       limits:
         cpu: "500m"
         memory: "384Mi"
     mon:
       requests:
-        cpu: "500m"
+        cpu: "100m"
         memory: "128Mi"
       limits:
         cpu: "500m"
         memory: "384Mi"
     osd:
       requests:
-          cpu: "500m"
+          cpu: "100m"
           memory: "128Mi"
       limits:
         cpu: "500m"
-        memory: "384Mi"
+        memory: "512Mi"
   storage:
     useAllNodes: false
     useAllDevices: false
