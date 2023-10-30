@@ -13,6 +13,35 @@ spec:
     allowMultiplePerNode: true
   dashboard:
     enabled: true
+  resources:
+    api:
+      requests:
+        cpu: "500m"
+        memory: "128Mi"
+      limits:
+        cpu: "500m"
+        memory: "384Mi"
+    mgr:
+      requests:
+        cpu: "500m"
+        memory: "128Mi"
+      limits:
+        cpu: "500m"
+        memory: "384Mi"
+    mon:
+      requests:
+        cpu: "500m"
+        memory: "128Mi"
+      limits:
+        cpu: "500m"
+        memory: "384Mi"
+    osd:
+      requests:
+          cpu: "500m"
+          memory: "128Mi"
+      limits:
+        cpu: "500m"
+        memory: "384Mi"
   storage:
     useAllNodes: false
     useAllDevices: false
