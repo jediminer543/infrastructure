@@ -2,5 +2,7 @@ spec:
   containers:
     - name: kube-apiserver
       resources:
+        requests:
+          memory: 256Mi
         limits:
-          memory: 512Mi
+          memory: 1024Mi

@@ -11,3 +11,7 @@ kubectl apply -f config/ceph-cluster.yaml
 kubectl apply -f config/ceph-provisioner.yaml
 kubectl krew install rook-ceph
 kubectl rook-ceph ceph status
+
+# Pls fix; despite memory restrictions this is set too damn high by default
+# Also limits allowed minimums on the OSD memory limits
+kubectl rook_ceph ceph config set osd.0 osd_memory_target 1073741824
