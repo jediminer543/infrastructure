@@ -147,11 +147,11 @@ resource "helm_release" "monitoring" {
     }
     // Storage
     set {
-      name = "prometheus.prometheusSpec.volumeClaimTemplate.spec.resources.requests.storage"
+      name = "prometheus.prometheusSpec.storage.volumeClaimTemplate.spec.resources.requests.storage"
       value = "10G"
     }
     set {
-      name = "alertmanager.alertmanagerSpec.volumeClaimTemplate.spec.resources.requests.storage"
+      name = "alertmanager.alertmanagerSpec.storage.volumeClaimTemplate.spec.resources.requests.storage"
       value = "10G"
     }
 }
