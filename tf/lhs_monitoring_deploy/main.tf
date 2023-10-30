@@ -117,7 +117,7 @@ resource "helm_release" "monitoring" {
     }
     set {
       name = "grafana.resources.limits.memory"
-      value = "100M"
+      value = "250M"
     }
     // prometheus-node-exporter
     set {
