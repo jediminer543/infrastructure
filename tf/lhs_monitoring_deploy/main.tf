@@ -65,14 +65,6 @@ resource "helm_release" "monitoring" {
       name = "prometheus.ingress.hosts[0]"
       value = "prometheus.${var.kps_root_domain}"
     }
-    set {
-      name = "prometheus.resources.limits.cpu"
-      value = "100m"
-    }
-    set {
-      name = "prometheus.resources.limits.memory"
-      value = "100M"
-    }
     // prometheus spec
     set {
       name = "prometheus.prometheusSpec.resources.limits.cpu"
@@ -80,7 +72,7 @@ resource "helm_release" "monitoring" {
     }
     set {
       name = "prometheus.prometheusSpec.resources.limits.memory"
-      value = "100M"
+      value = "250M"
     }
     // prometheusOperator
     set {
