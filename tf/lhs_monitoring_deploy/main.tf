@@ -145,9 +145,9 @@ resource "helm_release" "monitoring" {
       name = "kube-state-metrics.resources.limits.memory"
       value = "100M"
     }
-    // Storage
+    // Storage 
     set {
-      name = "prometheus.prometheusSpec.storage.volumeClaimTemplate.spec.resources.requests.storage"
+      name = "prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.resources.requests.storage"
       value = "10G"
     }
     set {

@@ -2,13 +2,13 @@
 apiVersion: "kubeadm.k8s.io/v1beta3"
 kind: InitConfiguration
 nodeRegistration:
-  name: "LHS-LDS"
   taints: []
 patches:
   directory: /home/user/somedir
 ---
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
+serverTLSBootstrap: true
 failSwapOn: false
 featureGates:
   NodeSwap: true
