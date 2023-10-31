@@ -11,8 +11,16 @@ ingress:
                 pathType: Prefix
 postgresql:
     enabled: true
+    resources:
+        limits:
+            cpu: 500m
+            memory: 256Mi
 redis:
     enabled: true
+    resources:
+        limits:
+            cpu: 500m
+            memory: 256Mi
 livenessProbe:
     initialDelaySeconds: 120
     periodSeconds: 60
@@ -21,3 +29,13 @@ prometheus:
         create: true
     rules:
         create: true
+resources:
+    server:
+        limits:
+            cpu: 500m
+            memory: 128Mi
+    worker:
+        limits:
+            cpu: 500m
+            memory: 128Mi
+    
