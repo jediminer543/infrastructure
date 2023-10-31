@@ -13,13 +13,13 @@ postgresql:
     enabled: true
     resources:
         limits:
-            cpu: 500m
+            cpu: 1000m
             memory: 256Mi
 redis:
     enabled: true
     resources:
         limits:
-            cpu: 500m
+            cpu: 1000m
             memory: 256Mi
 livenessProbe:
     initialDelaySeconds: 120
@@ -32,10 +32,10 @@ prometheus:
 resources:
     server:
         limits:
-            cpu: 500m
-            memory: 512Mi
+            cpu: 1000m
+            memory: 768Mi
     worker:
         limits:
-            cpu: 500m
+            cpu: 1000m
             memory: 512Mi
     
