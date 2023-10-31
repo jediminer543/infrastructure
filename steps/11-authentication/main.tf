@@ -27,7 +27,4 @@ module "lhs_authentik" {
   authentik_domain = "authentik.devel.leedshackspace.org.uk"
   authentik_version = "2023.10.2"
   authentik_ingress_annotations = "lets-encrypt-http"
-  depends_on = [
-    module.lhs_monitoring
-  ]
 }
