@@ -14,13 +14,13 @@ postgresql:
     resources:
         limits:
             cpu: 500m
-            memory: 256Mi
+            memory: 512Mi
 redis:
     enabled: true
     resources:
         limits:
             cpu: 500m
-            memory: 256Mi
+            memory: 512Mi
 livenessProbe:
     initialDelaySeconds: 120
     periodSeconds: 60
