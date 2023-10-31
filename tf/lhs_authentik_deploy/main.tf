@@ -172,7 +172,5 @@ AUTHENTIK_SECRET_KEY:
     }
   }
   */
-  timeouts {
-    create = "15m"
-  }
+  timeout = "900"
 }
