@@ -26,7 +26,7 @@ variable "synapse_cert_stuff" {
   })
   description = "A trick to bypass cert issues"
   default = {
-    enable = true
+    enable = false
     secret = "cacert"
   }
 }
