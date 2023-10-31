@@ -67,12 +67,20 @@ resource "helm_release" "monitoring" {
     }
     // prometheus spec
     set {
+      name = "prometheus.prometheusSpec.resources.requests.cpu"
+      value = "100m"
+    }
+    set {
+      name = "prometheus.prometheusSpec.resources.requests.memory"
+      value = "128Mi"
+    }
+    set {
       name = "prometheus.prometheusSpec.resources.limits.cpu"
-      value = "500m"
+      value = "750m"
     }
     set {
       name = "prometheus.prometheusSpec.resources.limits.memory"
-      value = "512M"
+      value = "768Mi"
     }
     // prometheusOperator
     set {
