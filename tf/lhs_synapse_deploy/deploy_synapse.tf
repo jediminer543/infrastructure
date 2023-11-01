@@ -273,7 +273,7 @@ resource "kubernetes_ingress_v1" "synapse_ingress" {
     name = "lhs-synapse"
     namespace = kubernetes_namespace.matrix_ns.metadata[0].name
     annotations = {
-      "cert-manager.io/cluster-issuer" = "letsencrypt-prod"
+      "cert-manager.io/cluster-issuer" = "lets-encrypt-http"
       "nginx.ingress.kubernetes.io/proxy-body-size" = "70m"
     }
   }

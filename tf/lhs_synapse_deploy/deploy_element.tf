@@ -114,7 +114,7 @@ resource "kubernetes_ingress_v1" "element_ingress" {
     name = "lhs-element"
     namespace = kubernetes_namespace.matrix_ns.metadata[0].name
     annotations = {
-      "cert-manager.io/cluster-issuer" = "letsencrypt-prod"
+      "cert-manager.io/cluster-issuer" = "lets-encrypt-http"
     }
   }
   spec {
