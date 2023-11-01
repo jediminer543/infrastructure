@@ -1,10 +1,10 @@
 output "authentik_fqdn" {
-    value = module.lhs_authentik.authentik_domain
+    value = module.lhs_authentik.authentik_fqdn
     description = "The FQDN that Authentik is deployed on"    
 }
 
 output "authentik_key" {
-    value = module.lhs_authentik
+    value = module.lhs_authentik.authentik_key
     description = "The API Key usable to setup Authentik"
     sensitive = true
 }
