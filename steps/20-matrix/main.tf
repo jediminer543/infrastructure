@@ -15,6 +15,16 @@ terraform {
   }
 }
 
+provider "kubernetes" {
+  config_path = var.kubectl_config
+}
+
+provider "helm" {
+  kubernetes {
+    config_path = var.kubectl_config
+  }
+}
+
 data "terraform_remote_state" "authentication" {
     backend = "local"
 
