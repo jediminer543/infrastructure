@@ -19,7 +19,7 @@ data "terraform_remote_state" "authentication" {
     backend = "local"
 
     config = {
-        path = "../11-authentication"
+        path = "../11-authentication/terraform.tfstate"
     }
 }
 
