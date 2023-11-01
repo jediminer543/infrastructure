@@ -57,6 +57,24 @@ resource "kubernetes_deployment_v1" "authentik_deployment" {
 }
 */
 
+resource "kubernetes_persistent_volume_claim_v1" "authentik_media" {
+  metadata {
+    name = "authentik-media"
+    namespace = kubernetes_namespace.namespace.metadata[0].name
+  }
+  spec {
+    access_modes = ["ReadWriteMany"]
+    resources {
+      requests = {
+        storage = "500Mi"
+      }
+    }
+  }
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
 
 resource "helm_release" "authentik" {
   name       = "lhs-authentik"
@@ -163,6 +181,23 @@ AUTHENTIK_SECRET_KEY:
   set {
     name = "ingress.tls[0].secretName"
     value = "authentik-web-cert"
+  }
+  // Media storage
+  set {
+    name = "volumeMounts[0].mountPath"
+    value = "/media"
+  }
+  set {
+    name = "volumeMounts[0].name"
+    value = "media"
+  }
+  set {
+    name = "volumes[0].name"
+    value = "media"
+  }
+  set {
+    name = "volumeMounts[0].persistentVolumeClaim.claimName"
+    value = kubernetes_persistent_volume_claim_v1.authentik_media.metadata.name
   }
   /*
   dynamic "set" {

@@ -15,12 +15,20 @@ postgresql:
         limits:
             cpu: 1000m
             memory: 256Mi
+    primary:
+        persistence:
+            annotations:
+                helm.sh/resource-policy: keep
 redis:
     enabled: true
     resources:
         limits:
             cpu: 1000m
             memory: 256Mi
+    master:
+        persistence:
+            annotations:
+                helm.sh/resource-policy: keep
 livenessProbe:
     initialDelaySeconds: 120
     periodSeconds: 60
