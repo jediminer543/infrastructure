@@ -24,14 +24,14 @@ data "terraform_remote_state" "authentication" {
 }
 
 provider "authentik" {
-  url   = "https://${data.terraform_remote_state.authentication.authentik_fqdn}"
-  token = data.terraform_remote_state.authentication.authentik_key
+  url   = "https://${data.terraform_remote_state.authentication.outputs.authentik_fqdn}"
+  token = data.terraform_remote_state.authentication.outputs.authentik_key
 }
 
 
 module "lhs_synapse_deploy" {
   source = "../../tf/lhs_synapse_deploy"
-  authentik_fqdn         = module.lhs_authentik.authentik_fqdn
+  authentik_fqdn         = data.terraform_remote_state.authentication.outputs.authentik_fqdn
   synapse_config_base    = "${file("config/synapse.yaml")}"
   synapse_config_logging = "${file("config/synapse-log.yaml")}"
   element_config_base    = "${file("config/element-config.json")}"
