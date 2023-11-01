@@ -30,7 +30,7 @@ provider "authentik" {
 
 
 module "lhs_synapse_deploy" {
-  source = "./modules/lhs_synapse_deploy"
+  source = "../../tf/lhs_synapse_deploy"
   authentik_fqdn         = module.lhs_authentik.authentik_fqdn
   synapse_config_base    = "${file("config/synapse.yaml")}"
   synapse_config_logging = "${file("config/synapse-log.yaml")}"
