@@ -278,7 +278,7 @@ resource "kubernetes_ingress_v1" "synapse_ingress" {
     }
   }
   spec {
-    ingress_class_name = "public"
+    // ingress_class_name = "public"
     rule {
       host = var.synapse_fqdn
       http {
