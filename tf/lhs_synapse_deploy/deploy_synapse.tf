@@ -175,6 +175,15 @@ resource "kubernetes_deployment" "synapse" {
             mount_path = "/keys"
           }
         }
+        init_container {
+           name = "synapse-generate"
+          image = "matrixdotorg/synapse:${var.synapse_ver}"
+          command = ["chown", "991:991", "/data"]
+          volume_mount {
+            name = "data-vol"
+            mount_path = "/data"
+          }
+        }
         container {
           name = "synapse"
           image = "matrixdotorg/synapse:${var.synapse_ver}"
