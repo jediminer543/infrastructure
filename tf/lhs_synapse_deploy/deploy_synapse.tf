@@ -125,7 +125,7 @@ resource "kubernetes_config_map" "synapse_config" {
 resource "kubernetes_deployment" "synapse" {
   depends_on = [
     helm_release.matrix_postgres,
-    kubernetes_job_v1.synapse_generate,
+    # kubernetes_job_v1.synapse_generate,
     kubernetes_config_map.synapse_config,
   ]
   metadata {
