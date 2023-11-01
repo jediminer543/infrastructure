@@ -176,7 +176,7 @@ resource "kubernetes_deployment" "synapse" {
           }
         }
         init_container {
-           name = "synapse-generate"
+           name = "fix-permissions"
           image = "matrixdotorg/synapse:${var.synapse_ver}"
           command = ["chown", "991:991", "/data"]
           volume_mount {
