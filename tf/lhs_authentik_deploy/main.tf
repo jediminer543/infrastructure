@@ -197,7 +197,7 @@ AUTHENTIK_SECRET_KEY:
   }
   set {
     name = "volumeMounts[0].persistentVolumeClaim.claimName"
-    value = kubernetes_persistent_volume_claim_v1.authentik_media.metadata.name
+    value = kubernetes_persistent_volume_claim_v1.authentik_media.metadata[0].name
   }
   /*
   dynamic "set" {
