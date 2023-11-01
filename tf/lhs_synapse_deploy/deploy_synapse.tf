@@ -236,7 +236,7 @@ resource "kubernetes_deployment" "synapse" {
               path = "/health"
               port = 8008
             }
-            initial_delay_seconds = 120
+            initial_delay_seconds = 600 // Apparently database bootstrap takes forever
             period_seconds = 10
           }
           dynamic env {
