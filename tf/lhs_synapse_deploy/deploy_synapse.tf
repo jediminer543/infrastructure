@@ -61,66 +61,66 @@ resource "kubernetes_config_map" "synapse_config" {
   }
 }
 
-resource "kubernetes_job_v1" "synapse_generate" {
-  metadata {
-    name = "lhs-synapse-generate"
-    namespace = kubernetes_namespace.matrix_ns.metadata[0].name
-  }
-  spec {
-    selector {
-    }
-    template {
-      metadata { 
-        labels = {
-          job = "synapse-generate"
-        }
-      }
-      spec {
-        container {
-          name = "synapse-generate"
-          image = "matrixdotorg/synapse:${var.synapse_ver}"
-          args = ["generate"]
-          env {
-            name = "SYNAPSE_SERVER_NAME"
-            value = var.synapse_fqdn
-          }
-          env {
-            name = "SYNAPSE_REPORT_STATS"
-            value = "yes"
-          }
-          env {
-            name = "SYNAPSE_CONFIG_PATH"
-            value = "/keys/homeserver.yaml"
-          }
-          volume_mount {
-            name = "key-vol"
-            mount_path = "/data"
-          }
-          volume_mount {
-            name = "data-vol"
-            mount_path = "/keys"
-          }
-        }
-        volume {
-          name = "key-vol"
-          persistent_volume_claim {
-            claim_name = kubernetes_persistent_volume_claim.synapse_keys_pvc.metadata[0].name
-          }
-        }
-        volume {
-          name = "data-vol"
-          empty_dir {
+# resource "kubernetes_job_v1" "synapse_generate" {
+#   metadata {
+#     name = "lhs-synapse-generate"
+#     namespace = kubernetes_namespace.matrix_ns.metadata[0].name
+#   }
+#   spec {
+#     selector {
+#     }
+#     template {
+#       metadata { 
+#         labels = {
+#           job = "synapse-generate"
+#         }
+#       }
+#       spec {
+#         container {
+#           name = "synapse-generate"
+#           image = "matrixdotorg/synapse:${var.synapse_ver}"
+#           args = ["generate"]
+#           env {
+#             name = "SYNAPSE_SERVER_NAME"
+#             value = var.synapse_fqdn
+#           }
+#           env {
+#             name = "SYNAPSE_REPORT_STATS"
+#             value = "yes"
+#           }
+#           env {
+#             name = "SYNAPSE_CONFIG_PATH"
+#             value = "/keys/homeserver.yaml"
+#           }
+#           volume_mount {
+#             name = "key-vol"
+#             mount_path = "/data"
+#           }
+#           volume_mount {
+#             name = "data-vol"
+#             mount_path = "/keys"
+#           }
+#         }
+#         volume {
+#           name = "key-vol"
+#           persistent_volume_claim {
+#             claim_name = kubernetes_persistent_volume_claim.synapse_keys_pvc.metadata[0].name
+#           }
+#         }
+#         volume {
+#           name = "data-vol"
+#           empty_dir {
             
-          }
-        }
-      }
-    }
-  }
-  timeouts {
-    create = "120s"
-    update = "120s"
-  }
-}
+#           }
+#         }
+#       }
+#     }
+#   }
+#   timeouts {
+#     create = "120s"
+#     update = "120s"
+#   }
+# }
 
 resource "kubernetes_deployment" "synapse" {
   depends_on = [
@@ -150,6 +150,31 @@ resource "kubernetes_deployment" "synapse" {
         }
       }
       spec {
+        init_container {
+           name = "synapse-generate"
+          image = "matrixdotorg/synapse:${var.synapse_ver}"
+          args = ["generate"]
+          env {
+            name = "SYNAPSE_SERVER_NAME"
+            value = var.synapse_fqdn
+          }
+          env {
+            name = "SYNAPSE_REPORT_STATS"
+            value = "yes"
+          }
+          env {
+            name = "SYNAPSE_CONFIG_PATH"
+            value = "/keys/homeserver.yaml"
+          }
+          volume_mount {
+            name = "key-vol"
+            mount_path = "/data"
+          }
+          volume_mount {
+            name = "data-vol"
+            mount_path = "/keys"
+          }
+        }
         container {
           name = "synapse"
           image = "matrixdotorg/synapse:${var.synapse_ver}"
