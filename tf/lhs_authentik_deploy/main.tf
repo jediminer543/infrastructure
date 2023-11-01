@@ -63,7 +63,7 @@ resource "kubernetes_persistent_volume_claim_v1" "authentik_media" {
     namespace = kubernetes_namespace.namespace.metadata[0].name
   }
   spec {
-    access_modes = ["ReadWriteMany"]
+    access_modes = ["ReadWriteOnce"]
     resources {
       requests = {
         storage = "500Mi"
