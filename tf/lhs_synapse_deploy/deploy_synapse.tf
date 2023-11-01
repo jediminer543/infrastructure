@@ -190,6 +190,16 @@ resource "kubernetes_deployment" "synapse" {
           port {
             container_port = 8008
           }
+          resources {
+            limits = {
+              "cpu" = "1"
+              "memory" = "512Mi"
+            }
+            requests = {
+              "cpu" = "250m"
+              "memory" = "128Mi"
+            }
+          }
           env {
             name = "SYNAPSE_CONFIG_PATH"
             value = "/config/homeserver.yaml"
@@ -226,7 +236,7 @@ resource "kubernetes_deployment" "synapse" {
               path = "/health"
               port = 8008
             }
-            initial_delay_seconds = 30
+            initial_delay_seconds = 120
             period_seconds = 10
           }
           dynamic env {
