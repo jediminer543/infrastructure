@@ -20,8 +20,12 @@ echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.
 sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo systemctl enable --now kubelet
+# Setup for kube
+echo "br_netfilter" | sudo tee -a /etc/modules
+sudo modprobe br_netfilter
+echo '1' | sudo tee -a /proc/sys/net/ipv4/ip_forward
 # Configure kubeadm
-sudo kubeadm init --config config/kubeadm-config.yaml
+sudo kubeadm init --config config/kubeadm-init.yaml
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
