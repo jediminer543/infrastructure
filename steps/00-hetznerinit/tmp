@@ -1,0 +1,17 @@
+DRIVE1 /dev/sda
+#DRIVE2 /dev/sdb
+
+SWRAID 0
+
+USE_KERNEL_MODE_SETTING no
+
+PART /boot ext3 1024M
+PART lvm chi-vg0 all
+
+LV chi-vg0 root / ext4 32G
+LV chi-vg0 swap swap swap 32G
+LV chi-vg0 home /home ext4 64G
+LV chi-vg0 tmp /tmp ext4 2G
+LV chi-vg0 var /var ext4 64G
+
+IMAGE /root/.oldroot/nfs/install/../images/Debian-1205-bookworm-amd64-base.tar.gz
