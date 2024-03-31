@@ -1,9 +1,11 @@
+# Chi setup
 DRIVE1 /dev/sda
-#DRIVE2 /dev/sdb
 
 SWRAID 0
 
 USE_KERNEL_MODE_SETTING no
+
+HOSTNAME chi
 
 PART /boot ext3 1024M
 PART lvm chi-vg0 all
