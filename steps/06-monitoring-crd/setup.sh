@@ -1,0 +1,1 @@
+kubectl create -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.72.0/bundle.yaml

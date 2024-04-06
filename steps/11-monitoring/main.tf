@@ -24,6 +24,6 @@ provider "helm" {
 module "lhs_monitoring" {
   source = "../../tf/lhs_monitoring_deploy"
   kps_ingress = true
-  kps_root_domain = "monitoring.devel.leedshackspace.org.uk"
+  kps_root_domain = "monitoring.gwen.org.uk"
   kps_version = "52.1.0"
 }
