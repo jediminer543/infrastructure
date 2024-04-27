@@ -9,3 +9,4 @@ terraform {
 locals {
   namespace_name = ""
 }
+
