@@ -24,7 +24,7 @@ provider "helm" {
 module "lhs_authentik" {
   source = "../../tf/lhs_authentik_deploy"
   authentik_values = "${file("config/authentik.yaml")}"
-  authentik_domain = "authentik.devel.leedshackspace.org.uk"
+  authentik_domain = "authentik.dev.gwen.org.uk"
   authentik_version = "2023.10.2"
   authentik_ingress_annotations = "lets-encrypt-http"
 }
