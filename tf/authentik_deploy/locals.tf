@@ -1,27 +1,30 @@
 locals {
+    //            ${kubernetes_secret_v1.authentik_secret.metadata[0].name}
     envFromValueStuff = <<EOF
-envValueFrom:
-    AUTHENTIK_BOOTSTRAP_TOKEN:
-        secretKeyRef:
-            key: authentik_bootstrap_token
-            name: ${kubernetes_secret_v1.authentik_secret.metadata[0].name}
-    AUTHENTIK_BOOTSTRAP_PASSWORD:
-        secretKeyRef:
-            key: authentik_bootstrap_pass
-            name: ${kubernetes_secret_v1.authentik_secret.metadata[0].name}
-    AUTHENTIK_POSTGRESQL__PASSWORD:
-        secretKeyRef:
-            key: postgresql-password
-            name: ${kubernetes_secret_v1.authentik_secret.metadata[0].name}
-    AUTHENTIK_SECRET_KEY:
-        secretKeyRef:
-            key: authentik_secret_key
-            name: ${kubernetes_secret_v1.authentik_secret.metadata[0].name}
+global:
+    envValueFrom:
+        AUTHENTIK_BOOTSTRAP_TOKEN:
+            secretKeyRef:
+                key: authentik_bootstrap_token
+                name: secret_name_here
+        AUTHENTIK_BOOTSTRAP_PASSWORD:
+            secretKeyRef:
+                key: authentik_bootstrap_pass
+                name: secret_name_here
+        AUTHENTIK_POSTGRESQL__PASSWORD:
+            secretKeyRef:
+                key: postgresql-password
+                name: secret_name_here
+        AUTHENTIK_SECRET_KEY:
+            secretKeyRef:
+                key: authentik_secret_key
+                name: secret_name_here
 EOF
     ingress_annotations = <<EOF
-ingress:
-    annotations:
-        cert-manager.io/cluster-issuer: ${var.authentik_ingress_annotations}
+server:
+    ingress:
+        annotations:
+            cert-manager.io/cluster-issuer: ${var.authentik_ingress_annotations}
 EOF
     authentik_value_combined = [yamlencode(module.deepmerge.merged)]
 }

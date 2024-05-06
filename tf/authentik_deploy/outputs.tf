@@ -10,5 +10,5 @@ output "authentik_key" {
 }
 
 output "authentik_cluster_name" {
-    value = "${helm_release.authentik.name}.${helm_release.authentik.namespace}"
+    value = "${data.helm_template.authentik.name}.${data.helm_template.authentik.namespace}"
 }

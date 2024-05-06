@@ -2,13 +2,26 @@ authentik:
     error_reporting:
         enabled: true
     log_level: info
-ingress:
-    enabled: true
-    hosts:
-        - host: COMPLETED_BY_TERRAFORM
-          paths:
-              - path: "/"
-                pathType: Prefix
+server:
+    ingress:
+        enabled: true
+        hosts:
+            - host: COMPLETED_BY_TERRAFORM
+              paths:
+                - path: "/"
+                  pathType: Prefix
+    livenessProbe:
+        initialDelaySeconds: 120
+        periodSeconds: 60
+    resources:
+        limits:
+            cpu: 1000m
+            memory: 768Mi
+    metrics:
+        serviceMonitor:
+            create: true
+        rules:
+            create: true
 postgresql:
     enabled: true
     resources:
@@ -29,20 +42,8 @@ redis:
         persistence:
             annotations:
                 helm.sh/resource-policy: keep
-livenessProbe:
-    initialDelaySeconds: 120
-    periodSeconds: 60
-prometheus:
-    serviceMonitor:
-        create: true
-    rules:
-        create: true
-resources:
-    server:
-        limits:
-            cpu: 1000m
-            memory: 768Mi
-    worker:
+worker:
+    resources:
         limits:
             cpu: 1000m
             memory: 512Mi
