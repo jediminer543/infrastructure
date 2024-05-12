@@ -1,0 +1,115 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gwen-headscale-test
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app.kubernetes.io/name: headscale-keys
+    app.kubernetes.io/component: keys-store
+    app.kubernetes.io/part-of: gwen-headscale-test
+  name: headscale-keys
+  namespace: gwen-headscale-test
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app.kubernetes.io/name: headscale-database
+    app.kubernetes.io/component: db-storage
+    app.kubernetes.io/part-of: gwen-headscale-test
+  name: headscale-database
+  namespace: gwen-headscale-test
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 512Mi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: headscale-config
+    app.kubernetes.io/component: config
+    app.kubernetes.io/part-of: gwen-headscale-test
+  name: headscale-config
+  namespace: gwen-headscale-test
+data:
+  config.yaml: |-
+    # Change to your hostname or host IP
+    server_url: http://headscale.gwen.org.uk:8080
+    # Listen to 0.0.0.0 so it's accessible outside the container
+    metrics_listen_addr: 0.0.0.0:9090
+    # The default /var/lib/headscale path is not writable in the container
+    noise:
+      private_key_path: /etc/headscale/keys/noise_private.key
+    # The default /var/lib/headscale path is not writable in the container
+    derp:
+      private_key_path: /etc/headscale/keys/private.key
+    # The default /var/run/headscale path is not writable  in the container
+    unix_socket: /etc/headscale/headscale.sock
+    # The default /var/lib/headscale path is not writable  in the container
+    database.type: sqlite3
+    database.sqlite.path: /etc/headscale/db/db.sqlite
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: hedgedoc
+    app.kubernetes.io/component: hedgedoc
+    app.kubernetes.io/part-of: gwen-hedgedoc-test
+    app.kubernetes.io/managed-by: gwen
+  name: hedgedoc
+  namespace: gwen-hedgedoc-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hedgedoc
+      app.kubernetes.io/name: hedgedoc
+      app.kubernetes.io/component: hedgedoc
+      app.kubernetes.io/part-of: gwen-hedgedoc-test
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: hedgedoc
+        app.kubernetes.io/name: hedgedoc
+        app.kubernetes.io/component: hedgedoc
+        app.kubernetes.io/part-of: gwen-hedgedoc-test
+    spec:
+      containers:
+        - image: headscale/headscale:0.22.3
+          name: headscale
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+              name: "http"
+            - containerPort: 9090
+              protocol: TCP
+              name: "metrics"
+          volumeMounts:
+            - mountPath: /etc/headscale/
+              name: config
+              readOnly: true
+            - mountPath: /etc/headscale/db
+              name: db
+              readOnly: false
+            - mountPath: /etc/headscale/keys
+              name: keys
+              readOnly: false
+      restartPolicy: Always
+      volumes:
+        - name: db
+          persistentVolumeClaim:
+            claimName: headscale-database
+        - name: keys
+          secret:
+            secretName: headscale-keys
+---
