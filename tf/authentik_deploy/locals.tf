@@ -34,7 +34,7 @@ module "deepmerge" {
   version = "0.1.5"
   maps = [
     yamldecode(var.authentik_values), 
-        yamldecode(local.envFromValueStuff),
+        # yamldecode(local.envFromValueStuff),
         var.authentik_ingress_annotations == "" ? {} : yamldecode(local.ingress_annotations)
   ]
   # insert the 1 required variable here

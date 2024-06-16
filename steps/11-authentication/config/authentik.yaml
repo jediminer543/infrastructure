@@ -33,7 +33,7 @@ postgresql:
             annotations:
                 helm.sh/resource-policy: keep
 redis:
-    enabled: true
+    enabled: false
     resources:
         limits:
             cpu: 1000m

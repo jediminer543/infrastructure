@@ -8,6 +8,11 @@ resource "random_password" "authentik_db_pass" {
   special = false
 }
 
+resource "random_password" "authentik_redis_pass" {
+  length = 50
+  special = false
+}
+
 resource "random_password" "authentik_postgress_pass" {
   length = 50
   special = false
