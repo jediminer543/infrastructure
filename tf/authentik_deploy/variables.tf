@@ -1,3 +1,9 @@
+variable "namespace" {
+  type = string
+  description = "kubernetes namespace to put authentik in"
+  default = "authentik"
+}
+
 variable "authentik_domain" {
   type = string
   default = "authentik.domain.tld"

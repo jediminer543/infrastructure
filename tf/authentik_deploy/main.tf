@@ -11,7 +11,7 @@ terraform {
 
 resource "kubernetes_namespace" "namespace" {
   metadata {
-    name = "lhs-authentik"
+    name = var.namespace
   }
 }
 
@@ -27,9 +27,6 @@ resource "kubernetes_persistent_volume_claim_v1" "authentik_media" {
         storage = "500Mi"
       }
     }
-  }
-  lifecycle {
-    prevent_destroy = true
   }
 }
 
