@@ -36,12 +36,10 @@ resource "kubernetes_secret_v1" "authentik_secret" {
     name = "authentik-secrets"
   }
   data = {
-    "authentik_secret_key" =  random_password.authentik_secret_key.result,
-    "authentik_db_pass" = random_password.authentik_db_pass.result,
-    "authentik_bootstrap_token" = random_password.authentik_bootstrap_token.result,
-    "authentik_bootstrap_pass" = random_password.authentik_bootstrap_pass.result,
-    "postgresql-password" = random_password.authentik_db_pass.result,
-    "postgresql-postgres-password" = random_password.authentik_postgress_pass.result,
+    "AUTHENTIK_SECRET_KEY" =  random_password.authentik_secret_key.result,
+    "AUTHENTIK_POSTGRESQL__PASSWORD" = random_password.authentik_db_pass.result,
+    "AUTHENTIK_BOOTSTRAP_TOKEN" = random_password.authentik_bootstrap_token.result,
+    "AUTHENTIK_BOOTSTRAP_PASSWORD" = random_password.authentik_bootstrap_pass.result,
   }
 }
 
