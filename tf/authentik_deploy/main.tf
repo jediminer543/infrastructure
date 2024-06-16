@@ -59,6 +59,11 @@ resource "helm_release" "authentik" {
     value = random_password.authentik_postgress_pass.result
   }
 
+  set_sensitive {
+    name = "postgresql.auth.password"
+    value = random_password.authentik_db_pass.result
+  }
+
   set {
     name = "server.ingress.hosts[0]"
     value = var.authentik_domain
