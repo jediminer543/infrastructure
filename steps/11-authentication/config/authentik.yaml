@@ -5,11 +5,6 @@ authentik:
 server:
     ingress:
         enabled: true
-        hosts:
-            - host: COMPLETED_BY_TERRAFORM
-              paths:
-                - path: "/"
-                  pathType: Prefix
     livenessProbe:
         initialDelaySeconds: 120
         periodSeconds: 60

@@ -65,7 +65,7 @@ resource "helm_release" "authentik" {
   }
 
   set {
-    name = "server.ingress.hosts[0].host"
+    name = "server.ingress.hosts[0]"
     value = var.authentik_domain
   }
   set {
