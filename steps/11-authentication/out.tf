@@ -13,7 +13,3 @@ output "authentik_cluster_name" {
     value = module.lhs_authentik.authentik_cluster_name
     description = "In cluster dns of authentik"
 }
-
-output "manifest" {
-    value = module.lhs_authentik.manifest
-}
