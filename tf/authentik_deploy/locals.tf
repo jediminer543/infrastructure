@@ -2,7 +2,7 @@ locals {
     //            ${kubernetes_secret_v1.authentik_secret.metadata[0].name}
     envFromValueStuff = <<EOF
 global:
-    envValueFrom:
+    env:
         AUTHENTIK_BOOTSTRAP_TOKEN:
             secretKeyRef:
                 key: authentik_bootstrap_token
