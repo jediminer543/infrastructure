@@ -6,19 +6,19 @@ global:
         AUTHENTIK_BOOTSTRAP_TOKEN:
             secretKeyRef:
                 key: authentik_bootstrap_token
-                name: secret_name_here
+                name: ${kubernetes_secret_v1.authentik_secret.metadata[0].name}
         AUTHENTIK_BOOTSTRAP_PASSWORD:
             secretKeyRef:
                 key: authentik_bootstrap_pass
-                name: secret_name_here
+                name: ${kubernetes_secret_v1.authentik_secret.metadata[0].name}
         AUTHENTIK_POSTGRESQL__PASSWORD:
             secretKeyRef:
                 key: postgresql-password
-                name: secret_name_here
+                name: ${kubernetes_secret_v1.authentik_secret.metadata[0].name}
         AUTHENTIK_SECRET_KEY:
             secretKeyRef:
                 key: authentik_secret_key
-                name: secret_name_here
+                name: ${kubernetes_secret_v1.authentik_secret.metadata[0].name}
 EOF
     ingress_annotations = <<EOF
 server:
