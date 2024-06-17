@@ -11,6 +11,7 @@ metadata:
     app.kubernetes.io/version: v1.6.2
 data:
   default-setting.yaml: |-
+    priority-class: longhorn-critical
     default-data-path: /var/lib/longhorn/
     node-drain-policy: block-for-eviction-if-contains-last-replica
 ---
@@ -27,3 +28,4 @@ metadata:
 data:
   storageclass.yaml: |-
 ---
+    
