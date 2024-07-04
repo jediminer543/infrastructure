@@ -110,5 +110,6 @@ resource "kubernetes_manifest" "authentik_manifest" {
   timeouts {
     create = "900"
   }
+  depends_on = [ data.helm_template.authentik ]
 }
 
