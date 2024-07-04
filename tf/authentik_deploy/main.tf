@@ -44,7 +44,7 @@ resource "kubernetes_secret_v1" "authentik_secret" {
 }
 
 
-resource "helm_release" "authentik" {
+data "helm_template" "authentik" {
   name       = "authentik"
   namespace  = kubernetes_namespace.namespace.metadata[0].name
   repository = "https://charts.goauthentik.io"
@@ -103,3 +103,12 @@ resource "helm_release" "authentik" {
   
   timeout = "900"
 }
+
+resource "kubernetes_manifest" "authentik_manifest" {
+  for_each = data.helm_template.authentik.manifests
+  manifest = yamldecode(each.value)
+  timeouts {
+    create = "900"
+  }
+}
+
