@@ -16,5 +16,5 @@ output "authentik_bootstrap_pass" {
 }
 
 output "authentik_cluster_name" {
-    value = "${data.helm_template.authentik.name}.${data.helm_template.authentik.namespace}"
+    value = "${resource.helm_release.authentik.name}.${resource.helm_release.authentik.namespace}"
 }
