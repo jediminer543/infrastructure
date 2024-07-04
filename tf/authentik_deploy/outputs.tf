@@ -9,6 +9,12 @@ output "authentik_key" {
     sensitive = true
 }
 
+output "authentik_bootstrap_pass" {
+    value = random_password.authentik_bootstrap_pass.result
+    description = "The password usable to setup Authentik"
+    sensitive = true
+}
+
 output "authentik_cluster_name" {
     value = "${resource.helm_release.authentik.name}.${resource.helm_release.authentik.namespace}"
 }
