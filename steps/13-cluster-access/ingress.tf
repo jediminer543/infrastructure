@@ -1,24 +1,27 @@
-resource "kubernetes_ingress" "kube_api_ingress" {
+resource "kubernetes_ingress_v1" "kube_api_ingress" {
   metadata {
-    name = "kube_api_ingress"
-    namespace = "kube-bolton"
+    name = "kube-api-ingress"
+    namespace = "default"
   }
   spec {
-    backend {
-      service_name = "kubernetes.default"
-      service_port = "443"
-    }
     rule {
       host = "kube.dev.gwen.org.uk"
       http {
         path {
           path = "/"
           backend {
-            service_name = "kubernetes.default"
-            service_port = "443"
+            service {
+              name = "kubernetes"
+              port {
+                number = 443
+              }
+            }
           }
         }
       }
+    }
+    tls {
+      secret_name = "kube-ingress-secret"
     }
   }
 }

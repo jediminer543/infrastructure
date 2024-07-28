@@ -2,11 +2,9 @@ terraform {
   required_providers {
     kubernetes = {
       source = "hashicorp/kubernetes"
-      version = "2.23.0"
     }
     authentik = {
       source = "goauthentik/authentik"
-      version = "2023.8.0"
     }
   }
 }
@@ -28,4 +26,3 @@ provider "authentik" {
   url   = "https://${data.terraform_remote_state.authentication.outputs.authentik_fqdn}"
   token = data.terraform_remote_state.authentication.outputs.authentik_key
 }
-
