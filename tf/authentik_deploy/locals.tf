@@ -11,6 +11,7 @@ server:
     ingress:
         annotations:
             cert-manager.io/cluster-issuer: ${var.authentik_ingress_annotations}
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure
 EOF
     authentik_value_combined = [yamlencode(module.deepmerge.merged)]
 }
