@@ -1,4 +1,3 @@
-/*
 data "authentik_flow" "default-authorization-flow" {
   slug = "default-provider-authorization-explicit-consent"
 }
@@ -21,8 +20,8 @@ resource "random_password" "kube_client_secret" {
 }
 
 resource "authentik_provider_oauth2" "kube_oidc" {
-  name      = "kubernetes-core"
-  client_id = "kubernetes-core"
+  name      = "kubernetes-api"
+  client_id = "kubernetes-api"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   redirect_uris = [ "https://${var.synapse_fqdn}/_synapse/client/oidc/callback" ]
   client_type = "confidential"
@@ -32,8 +31,7 @@ resource "authentik_provider_oauth2" "kube_oidc" {
 }
 
 resource "authentik_application" "kube_authentik_app" {
-  name              = "matrix-synapse"
-  slug              = "matrix-synapse"
+  name              = "kubernetes-api"
+  slug              = "kubernetes-api"
   protocol_provider = authentik_provider_oauth2.kube_oidc.id
 }
-*/

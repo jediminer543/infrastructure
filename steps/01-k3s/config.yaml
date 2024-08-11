@@ -4,4 +4,3 @@ cluster-cidr: 100.64.0.0/10,fdf3:2ff6:a0b1::/48
 service-cidr: 172.16.0.0/12,fdbb:165d:fec7::/48
 flannel-backend: wireguard-native
 kube-apiserver-arg: "--authentication-config"
-kube-apiserver-arg: "--feature-gates=StructuredAuthenticationConfiguration=true"
