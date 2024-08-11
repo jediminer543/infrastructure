@@ -1,0 +1,47 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  annotations:
+    helmcharts.cattle.io/managed-by: helm-controller
+    objectset.rio.cattle.io/owner-gvk: k3s.cattle.io/v1, Kind=Addon
+    objectset.rio.cattle.io/owner-name: traefik
+    objectset.rio.cattle.io/owner-namespace: kube-system
+  finalizers:
+  - wrangler.cattle.io/on-helm-chart-remove
+  generation: 3
+  name: traefik
+  namespace: kube-system
+spec:
+  chart: https://%{KUBERNETES_API}%/static/charts/traefik-25.0.3+up25.0.0.tgz
+  set:
+    global.systemDefaultRegistry: ""
+  valuesContent: |-
+    deployment:
+      podAnnotations:
+        prometheus.io/port: "8082"
+        prometheus.io/scrape: "true"
+    experimental:
+      kubernetesGateway:
+        enabled: true
+    providers:
+      kubernetesIngress:
+        publishedService:
+          enabled: true
+      kubernetesGateway:
+        enabled: true
+        experimentalChannel: true
+    priorityClassName: "system-cluster-critical"
+    image:
+      repository: "rancher/mirrored-library-traefik"
+      tag: "2.10.7"
+    tolerations:
+    - key: "CriticalAddonsOnly"
+      operator: "Exists"
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
+      effect: "NoSchedule"
+    - key: "node-role.kubernetes.io/master"
+      operator: "Exists"
+      effect: "NoSchedule"
+    service:
+      ipFamilyPolicy: "PreferDualStack"
