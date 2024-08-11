@@ -23,7 +23,7 @@ resource "authentik_provider_oauth2" "kube_oidc" {
   name      = "kubernetes-api"
   client_id = "kubernetes-api"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
-  redirect_uris = [ "https://${var.synapse_fqdn}/_synapse/client/oidc/callback" ]
+  redirect_uris = [ "http://localhost:8000", "http://localhost:18000" ]
   client_type = "confidential"
   client_secret = random_password.kube_client_secret.result
   property_mappings = data.authentik_scope_mapping.oauth_mappings.ids
