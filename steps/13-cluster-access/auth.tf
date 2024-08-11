@@ -14,20 +14,14 @@ data "authentik_scope_mapping" "oauth_mappings" {
     ]
 }
 
-resource "random_password" "kube_client_secret" {
-  length = 50
-  special = false
-}
-
 resource "authentik_provider_oauth2" "kube_oidc" {
   name      = "kubernetes-api"
   client_id = "kubernetes-api"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   redirect_uris = [ "http://localhost:8000", "http://localhost:18000" ]
-  client_type = "confidential"
-  client_secret = random_password.kube_client_secret.result
+  client_type = "public"
   property_mappings = data.authentik_scope_mapping.oauth_mappings.ids
-  signing_key = data.authentik_certificate_key_pair.generated.id
+  signing_key = data.authentik_certificate_key_pair.generated.id 
 }
 
 resource "authentik_application" "kube_authentik_app" {
