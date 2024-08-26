@@ -21,10 +21,11 @@ provider "helm" {
   }
 }
 
+// see: https://artifacthub.io/packages/helm/goauthentik/authentik
 module "lhs_authentik" {
   source = "../../tf/authentik_deploy"
   authentik_values = "${file("config/authentik.yaml")}"
   authentik_domain = "authentik.dev.gwen.org.uk"
-  authentik_version = "2024.4.1"
+  authentik_version = "2024.6.4"
   authentik_ingress_annotations = "lets-encrypt-http"
 }
