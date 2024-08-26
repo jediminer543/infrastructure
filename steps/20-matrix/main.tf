@@ -40,11 +40,11 @@ provider "authentik" {
 
 
 module "lhs_synapse_deploy" {
-  source = "../../tf/lhs_synapse_deploy"
+  source = "../../tf/synapse_deploy"
   authentik_fqdn         = data.terraform_remote_state.authentication.outputs.authentik_fqdn
   synapse_config_base    = "${file("config/synapse.yaml")}"
   synapse_config_logging = "${file("config/synapse-log.yaml")}"
   element_config_base    = "${file("config/element-config.json")}"
-  synapse_fqdn = "synapse.devel.leedshackspace.org.uk"
-  element_fqdn = "element.devel.leedshackspace.org.uk"
+  synapse_fqdn = "synapse.dev.gwen.org.uk"
+  element_fqdn = "element.dev.gwen.org.uk"
 }
