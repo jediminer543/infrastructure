@@ -18,7 +18,7 @@ resource "authentik_provider_oauth2" "hedgedoc_oidc" {
   name      = "hedgedoc"
   client_id = "hedgedoc"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
-  redirect_uris = [ "https://${var.hedgedoc_fqdn}/_synapse/client/oidc/callback" ]
+  redirect_uris = [ "https://${var.hedgedoc_fqdn}/auth/oauth2/callback" ]
   client_type = "confidential"
   client_secret = random_password.hedgedoc_authentik_client_secret.result
   property_mappings = data.authentik_scope_mapping.oauth_mappings.ids
