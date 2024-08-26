@@ -156,7 +156,7 @@ resource "kubernetes_ingress_v1" "ingress" {
         path {
           backend {
             service {
-              name = kubernetes_service.synapse_svc.metadata[0].name
+              name = kubernetes_service.svc.metadata[0].name
               port {
                 name = "hedgedoc"
               }
