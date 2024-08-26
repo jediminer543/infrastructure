@@ -118,3 +118,58 @@ resource "kubernetes_deployment" "hedgedoc" {
     }
   }
 }
+
+
+resource "kubernetes_service" "svc" {
+  depends_on = [
+    kubernetes_deployment.hedgedoc
+  ]
+  metadata {
+    name = "hedgedoc"
+    namespace = kubernetes_namespace.ns.metadata[0].name
+  }
+  spec {
+    selector = {
+        app = "hedgedoc"
+    }
+    port {
+      name = "hedgedoc"
+      port = 3000
+    }
+  }
+}
+
+resource "kubernetes_ingress_v1" "ingress" {
+  metadata {
+    name = "hedgedoc"
+    namespace = kubernetes_namespace.ns.metadata[0].name
+    annotations = {
+      "cert-manager.io/cluster-issuer" = "lets-encrypt-http"
+      "nginx.ingress.kubernetes.io/proxy-body-size" = "70m"
+    }
+  }
+  spec {
+    // ingress_class_name = "public"
+    rule {
+      host = var.hedgedoc_fqdn
+      http {
+        path {
+          backend {
+            service {
+              name = kubernetes_service.synapse_svc.metadata[0].name
+              port {
+                name = "hedgedoc"
+              }
+            }
+          }
+        }
+      }
+    }
+    tls {
+      secret_name = "hedgedoc-web-cert"
+      hosts = [
+        var.hedgedoc_fqdn
+      ]
+    }
+  }
+}
