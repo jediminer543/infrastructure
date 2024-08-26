@@ -22,6 +22,7 @@ resource "kubernetes_secret" "hedgedoc" {
     "CMD_OAUTH2_USER_PROFILE_DISPLAY_NAME_ATTR" = "name"
     "CMD_OAUTH2_USER_PROFILE_EMAIL_ATTR" = "email"
     "CMD_ALLOW_EMAIL_REGISTER" = "false"
+    "CMD_ALLOW_ANONYMOUS" = "false"
   }
 }
 
