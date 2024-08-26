@@ -15,8 +15,8 @@ data "authentik_scope_mapping" "oauth_mappings" {
 }
 
 resource "authentik_provider_oauth2" "hedgedoc_oidc" {
-  name      = "matrix-synapse"
-  client_id = "matrix-synapse"
+  name      = "hedgedoc"
+  client_id = "hedgedoc"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   redirect_uris = [ "https://${var.hedgedoc_fqdn}/_synapse/client/oidc/callback" ]
   client_type = "confidential"
