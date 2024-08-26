@@ -290,7 +290,10 @@ resource "kubernetes_deployment" "synapse" {
         }
         security_context {
           fs_group = 991
+          fs_group_change_policy = "Always"
           run_as_non_root = true
+          run_as_group = 991
+          run_as_user = 991
         }
       }
     }
