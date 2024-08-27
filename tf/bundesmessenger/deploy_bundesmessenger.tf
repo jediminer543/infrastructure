@@ -11,7 +11,7 @@ locals {
 }
 EOF
     bundesmessenger_config = jsonencode(merge(
-        jsondecode(var.element_config_base),
+        jsondecode(var.bundesmessenger_config_base),
         jsondecode(local.bundesmessenger_config_overrides)
         ))
 }
@@ -19,7 +19,7 @@ EOF
 resource "kubernetes_config_map" "bundesmessenger_config" {
   metadata {
     name = "bundesmessenger-config"
-    namespace = kubernetes_namespace.matrix_ns.metadata[0].name
+    namespace = kubernetes_namespace.ns.metadata[0].name
     labels = {
       "config_hash_element" = substr(sha256(local.bundesmessenger_config), 0, 63)
     }
@@ -31,8 +31,8 @@ resource "kubernetes_config_map" "bundesmessenger_config" {
 
 resource "kubernetes_deployment" "bundesmessenger_deploy" {
   metadata {
-    name = "lhs-bundesmessenger"
-    namespace = kubernetes_namespace.matrix_ns.metadata[0].name
+    name = "bundesmessenger"
+    namespace = kubernetes_namespace.ns.metadata[0].name
   }
   spec {
     selector {
@@ -97,7 +97,7 @@ resource "kubernetes_service" "bundesmessenger_svc" {
   ]
   metadata {
     name = "lhs-bundesmessenger"
-    namespace = kubernetes_namespace.matrix_ns.metadata[0].name
+    namespace = kubernetes_namespace.ns.metadata[0].name
   }
   spec {
     selector = {
@@ -114,7 +114,7 @@ resource "kubernetes_service" "bundesmessenger_svc" {
 resource "kubernetes_ingress_v1" "bundesmessenger_ingress" {
   metadata {
     name = "lhs-bundesmessenger"
-    namespace = kubernetes_namespace.matrix_ns.metadata[0].name
+    namespace = kubernetes_namespace.ns.metadata[0].name
     annotations = {
       "cert-manager.io/cluster-issuer" = "lets-encrypt-http"
     }
@@ -122,7 +122,7 @@ resource "kubernetes_ingress_v1" "bundesmessenger_ingress" {
   spec {
     // ingress_class_name = "public"
     rule {
-      host = "bm.${var.element_fqdn}"
+      host = "${var.bundesmessenger_fqdn}"
       http {
         path {
           backend {
@@ -139,7 +139,7 @@ resource "kubernetes_ingress_v1" "bundesmessenger_ingress" {
     tls {
       secret_name = "lhs-bundesmessenger-web-cert"
       hosts = [
-        var.element_fqdn
+        var.bundesmessenger_fqdn
       ]
     }
   }
