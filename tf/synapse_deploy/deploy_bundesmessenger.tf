@@ -122,7 +122,7 @@ resource "kubernetes_ingress_v1" "bundesmessenger_ingress" {
   spec {
     // ingress_class_name = "public"
     rule {
-      host = "bm."+var.element_fqdn
+      host = "bm.${var.element_fqdn}"
       http {
         path {
           backend {
