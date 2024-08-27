@@ -51,7 +51,7 @@ resource "kubernetes_deployment" "bundesmessenger_deploy" {
       spec {
         container {
           name = "bundesmessenger"
-          image = "gitlab.opencode.de/bwi/bundesmessenger/backend/container-images/bundesmessenger-web:2.10.0-jammy-production"
+          image = "registry.opencode.de/bwi/bundesmessenger/backend/container-images/bundesmessenger-web:2.10.0-jammy-production"
           volume_mount {
             name = "config-vol"
             mount_path = "/app/config.json"
