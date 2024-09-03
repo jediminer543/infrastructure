@@ -33,8 +33,8 @@ server {
         return 200;
         access_log off;
     }
-    location ~ /config.TOFILLIN.json {
-        rewrite /config.TOFILLIN.json /config.json break;
+    location ~ /config.$$TOFILLIN$$.json {
+        rewrite /config.$$TOFILLIN$$.json /config.json break;
     }
     location = /favicon.ico {
         alias /app/bwi/img/favicon.ico;
