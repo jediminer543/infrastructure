@@ -45,7 +45,6 @@ module "lhs_synapse_deploy" {
   synapse_config_base    = "${file("config/synapse.yaml")}"
   synapse_config_logging = "${file("config/synapse-log.yaml")}"
   element_config_base    = "${file("config/element-config.json")}"
-  element_ver = "v1.11.76"
   synapse_fqdn = "synapse.dev.gwen.org.uk"
   element_fqdn = "element.dev.gwen.org.uk"
 }
